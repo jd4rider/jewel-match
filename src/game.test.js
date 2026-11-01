@@ -1,6 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { SIZE, makeBoard, runsOf, findStep, applyStep, findMove, newGem, shuffleBoard } from './game.js'
+import { SIZE, makeBoard, runsOf, findStep, applyStep, findMove, newGem, shuffleBoard, manualStep } from './game.js'
 
 const filled = () => {
   // Checker-ish pattern with no runs of 3.
@@ -13,6 +13,7 @@ test('new boards have no matches and at least one move', () => {
   for (let i = 0; i < 20; i++) {
     const b = makeBoard()
     assert.equal(runsOf(b).length, 0)
+    assert.equal(findStep(b), null)
     assert.ok(findMove(b))
   }
 })
@@ -27,19 +28,33 @@ test('detects a run of 3 and refills the board after clearing', () => {
   assert.ok(next.flat().every(Boolean))
 })
 
-test('a run of 4 creates a blast gem that clears a 3x3 area', () => {
+test('a horizontal run of 4 makes a column Line gem that clears its column', () => {
   const b = filled()
   for (let c = 0; c < 4; c++) b[7][c] = newGem(5)
   const step = findStep(b)
-  assert.equal(step.creations[0].special, 'blast')
+  assert.equal(step.creations[0].special, 'col')
   const next = applyStep(b, step)
-  assert.equal(next.flat().filter((g) => g.special === 'blast').length, 1)
-  const col = next[7].findIndex((g) => g.special === 'blast')
-  next[7][col].special = 'blast'
-  // Force a match containing the blast gem and check the 3x3 blast gets cleared.
-  for (const dc of [1, 2]) next[7][Math.min(col + dc, SIZE - 1)] = newGem(next[7][col].type)
-  const burst = findStep(next)
-  assert.ok(burst && burst.clear.size >= 3)
+  const col = next[7].findIndex((g) => g.special === 'col')
+  assert.ok(col >= 0)
+  const fire = manualStep(next, [`7,${col}`])
+  assert.equal(fire.clear.size, SIZE)
+})
+
+test('a 2x2 square makes a Star gem that clears row and column', () => {
+  const b = filled()
+  for (const [r, c] of [[3, 3], [3, 4], [4, 3], [4, 4]]) b[r][c] = newGem(5)
+  const step = findStep(b)
+  assert.equal(step.creations[0].special, 'star')
+  const next = applyStep(b, step)
+  const star = next.flat().find((g) => g.special === 'star')
+  const at = next.flatMap((row, r) => row.map((g, c) => (g === star ? `${r},${c}` : null))).find(Boolean)
+  assert.equal(manualStep(next, [at]).clear.size, SIZE * 2 - 1)
+})
+
+test('an L shape makes a Bomb gem', () => {
+  const b = filled()
+  for (const [r, c] of [[2, 2], [2, 3], [2, 4], [3, 2], [4, 2]]) b[r][c] = newGem(5)
+  assert.ok(findStep(b).creations.some((c) => c.special === 'blast'))
 })
 
 test('rainbow swap clears every gem of the swapped colour', () => {

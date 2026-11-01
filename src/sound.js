@@ -1,4 +1,5 @@
 let ctx = null
+export const audioState = { muted: false }
 
 function audio() {
   if (!ctx) {
@@ -11,6 +12,7 @@ function audio() {
 }
 
 function tone(freq, { type = 'sine', dur = 0.18, gain = 0.12, delay = 0 } = {}) {
+  if (audioState.muted) return
   const a = audio()
   if (!a) return
   const t = a.currentTime + delay
@@ -26,10 +28,37 @@ function tone(freq, { type = 'sine', dur = 0.18, gain = 0.12, delay = 0 } = {}) 
   osc.stop(t + dur + 0.02)
 }
 
+function noise({ dur = 0.4, gain = 0.2, freq = 600, delay = 0 } = {}) {
+  if (audioState.muted) return
+  const a = audio()
+  if (!a) return
+  const t = a.currentTime + delay
+  const buf = a.createBuffer(1, Math.floor(a.sampleRate * dur), a.sampleRate)
+  const data = buf.getChannelData(0)
+  for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / data.length) ** 2
+  const src = a.createBufferSource()
+  src.buffer = buf
+  const filter = a.createBiquadFilter()
+  filter.type = 'lowpass'
+  filter.frequency.setValueAtTime(freq * 4, t)
+  filter.frequency.exponentialRampToValueAtTime(freq, t + dur)
+  const amp = a.createGain()
+  amp.gain.value = gain
+  src.connect(filter).connect(amp).connect(a.destination)
+  src.start(t)
+}
+
 const SCALE = [0, 2, 4, 7, 9, 12, 14, 16, 19, 21, 24]
 const note = (step) => 523.25 * 2 ** (SCALE[Math.min(step, SCALE.length - 1)] / 12)
 
 export const sfx = {
+  boom: (size = 1) => {
+    noise({ dur: 0.35 + size * 0.15, gain: 0.12 + size * 0.05, freq: 500 })
+    tone(90, { type: 'sine', dur: 0.3, gain: 0.18 })
+  },
+  whoosh: () => noise({ dur: 0.6, gain: 0.08, freq: 1200 }),
+  power: () => [0, 7, 12, 19].forEach((s, i) => tone(330 * 2 ** (s / 12), { type: 'square', dur: 0.12, gain: 0.04, delay: i * 0.05 })),
+  coin: () => [12, 19].forEach((s, i) => tone(660 * 2 ** (s / 12), { dur: 0.15, gain: 0.07, delay: i * 0.08 })),
   select: () => tone(660, { dur: 0.08, gain: 0.06, type: 'triangle' }),
   swap: () => tone(440, { dur: 0.1, gain: 0.06, type: 'triangle' }),
   bad: () => {

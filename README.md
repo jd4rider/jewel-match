@@ -7,7 +7,13 @@ A jewel-matching puzzle game built with Phaser 4, Vite and Electron — playable
 
 ## How to play
 
-Swap two neighbouring gems (click one then another, or drag) to line up 3+ of a kind. Match **4** to make a **Blast Gem** (clears a 3×3 area when matched); match **5** to make a **Rainbow Gem** (swap it with any gem to clear every gem of that colour). Reach the score target before you run out of moves to advance; the game gets harder each level. Idle for a few seconds, or press **Hint**, to see a move.
+Swap two neighbouring gems (click or drag) to line up 3+ of a kind.
+
+**Special gems:** 4 in a line → **Line gem** (clears a row/column) · L/T shape → **Bomb** · 2×2 square → **Star** (row + column) · 5 in a line → **Rainbow** (swap to clear a colour). Swap two specials for bigger blasts.
+
+**Modes:** 🗺 **Journey** (48 levels across 6 regions on a scrolling map, with score / collect / timed goals and 3-star ratings) · 💎 **Classic** (endless levels) · ⏱ **Timed Blitz** (60s, combos add time) · 🧘 **Zen**.
+
+**Power-ups:** 🔨 Hammer, 💣 Bomb, ⚡ Zap (clear a colour), 🔀 Shuffle, ➕ Extra moves/time — earned from stars and big combos.
 
 ## Develop
 
