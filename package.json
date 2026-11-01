@@ -10,7 +10,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "oxlint",
-    "test": "node --test src/",
+    "test": "node --test src/game.test.js",
     "preview": "vite preview",
     "start": "npm run build && electron .",
     "dist:mac": "vite build && electron-builder --mac",
