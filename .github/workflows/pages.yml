@@ -33,6 +33,9 @@ jobs:
         run: |
           mkdir -p dist/play
           cp -r dist/index.html dist/assets dist/favicon.svg dist/play/
+          mkdir -p dist/play-phaser
+          cp dist/phaser.html dist/play-phaser/index.html
+          sed -i 's#\./assets#../assets#g; s#\./favicon#../favicon#g' dist/play-phaser/index.html
           cp site/index.html dist/index.html
           cp build/icon-1024.png dist/icon.png
       - uses: actions/configure-pages@v5
