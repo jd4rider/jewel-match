@@ -1,6 +1,6 @@
 # Jewel Match
 
-A jewel-matching puzzle game built with React, Vite and Electron — playable in the browser and as a desktop app for macOS, Windows and Linux.
+A jewel-matching puzzle game built with Phaser 4, Vite and Electron — playable in the browser and as a desktop app for macOS, Windows and Linux.
 
 - Play online: <https://jd4rider.github.io/jewel-match/play/>
 - Downloads: <https://github.com/jd4rider/jewel-match/releases/latest>

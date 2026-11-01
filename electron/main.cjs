@@ -5,10 +5,10 @@ const isMac = process.platform === 'darwin'
 
 function createWindow() {
   const win = new BrowserWindow({
-    width: 760,
-    height: 900,
-    minWidth: 480,
-    minHeight: 640,
+    width: 700,
+    height: 920,
+    minWidth: 400,
+    minHeight: 540,
     title: 'Jewel Match',
     backgroundColor: '#1b1038',
     show: false,
