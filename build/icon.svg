@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5b21b6"/><stop offset="0.55" stop-color="#2e1065"/><stop offset="1" stop-color="#12062b"/></linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#f472b6" stop-opacity="0.65"/><stop offset="1" stop-color="#f472b6" stop-opacity="0"/></radialGradient>
+    <linearGradient id="crown" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe4ec"/><stop offset="1" stop-color="#fb7185"/></linearGradient>
+    <linearGradient id="L" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fb7185"/><stop offset="1" stop-color="#be123c"/></linearGradient>
+    <linearGradient id="R" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#be185d"/><stop offset="1" stop-color="#7f1034"/></linearGradient>
+    <linearGradient id="P" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e11d48"/><stop offset="1" stop-color="#6b0f2e"/></linearGradient>
+  </defs>
+  <rect x="24" y="24" width="976" height="976" rx="224" fill="url(#bg)"/>
+  <circle cx="512" cy="540" r="440" fill="url(#glow)"/>
+  <!-- gem: brilliant cut -->
+  <g stroke="#fff" stroke-opacity="0.55" stroke-width="5" stroke-linejoin="round">
+    <polygon points="512,232 692,232 780,392 512,560" fill="url(#R)"/>
+    <polygon points="512,232 332,232 244,392 512,560" fill="url(#L)"/>
+    <polygon points="332,232 692,232 780,392 244,392" fill="url(#crown)"/>
+    <polygon points="244,392 780,392 512,820" fill="url(#P)"/>
+    <polygon points="244,392 380,392 512,820" fill="#f43f5e" fill-opacity="0.55"/>
+    <polygon points="644,392 780,392 512,820" fill="#4c0519" fill-opacity="0.35"/>
+    <polygon points="380,392 644,392 512,820" fill="#fb7185" fill-opacity="0.35"/>
+    <polygon points="448,232 576,232 644,392 380,392" fill="#fff" fill-opacity="0.35"/>
+  </g>
+  <polygon points="360,250 450,250 400,330 310,330" fill="#fff" fill-opacity="0.8"/>
+  <!-- sparkles -->
+  <g fill="#fff">
+    <path d="M800 200 L818 262 L880 280 L818 298 L800 360 L782 298 L720 280 L782 262 Z"/>
+    <path d="M214 640 L226 680 L266 692 L226 704 L214 744 L202 704 L162 692 L202 680 Z" fill-opacity="0.9"/>
+    <path d="M840 660 L848 686 L874 694 L848 702 L840 728 L832 702 L806 694 L832 686 Z" fill-opacity="0.8"/>
+  </g>
+</svg>
