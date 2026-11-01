@@ -12,7 +12,7 @@ function audio() {
 }
 
 function tone(freq, { type = 'sine', dur = 0.18, gain = 0.12, delay = 0 } = {}) {
-  if (audioState.muted) return
+  if (audioState.muted || !Number.isFinite(freq)) return
   const a = audio()
   if (!a) return
   const t = a.currentTime + delay
@@ -49,7 +49,7 @@ function noise({ dur = 0.4, gain = 0.2, freq = 600, delay = 0 } = {}) {
 }
 
 const SCALE = [0, 2, 4, 7, 9, 12, 14, 16, 19, 21, 24]
-const note = (step) => 523.25 * 2 ** (SCALE[Math.min(step, SCALE.length - 1)] / 12)
+const note = (step) => 523.25 * 2 ** (SCALE[Math.max(0, Math.min(step, SCALE.length - 1))] / 12)
 
 export const sfx = {
   boom: (size = 1) => {
