@@ -32,7 +32,7 @@ jobs:
       - name: Add landing page with download links
         run: |
           mkdir -p dist/play dist/play-phaser
-          cp -r dist/index.html dist/assets dist/favicon.svg dist/play/
+          cp -r dist/index.html dist/assets dist/favicon.svg dist/arcade-client.js dist/play/
           printf '<meta http-equiv="refresh" content="0; url=../play/">' > dist/play-phaser/index.html
           cp site/index.html dist/index.html
           cp build/icon-1024.png dist/icon.png
