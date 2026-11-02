@@ -1,7 +1,7 @@
 {
   "name": "jewel-match",
   "private": true,
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "A sparkling jewel-matching puzzle game.",
   "author": "jd4rider",
   "type": "module",
