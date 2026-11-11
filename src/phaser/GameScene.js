@@ -766,7 +766,7 @@ export default class GameScene extends Phaser.Scene {
     if (blitz) info.push(record ? '🏆 New best!' : `Best ${data.best.timed.toLocaleString()}`)
     p.add(text(this, W / 2, stars ? 400 : 330, info.join('\n'), 24, '#ddd6fe', { align: 'center', lineSpacing: 8 }).setOrigin(0.5, 0))
     if (rewards.length) {
-      p.add(text(this, W / 2, 485, `Rewards: ${rewards.map((r) => r.icon).join(' ')}`, 28, '#a5f3fc').setOrigin(0.5))
+      p.add(text(this, W / 2, 452, `Rewards: ${rewards.map((r) => r.icon).join(' ')}`, 28, '#a5f3fc').setOrigin(0.5))
     }
 
     const add = (label, y, fn, color) => p.add(button(this, W / 2, y, label, fn, { w: 280, h: 52, color }))
