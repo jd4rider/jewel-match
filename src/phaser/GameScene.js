@@ -772,9 +772,11 @@ export default class GameScene extends Phaser.Scene {
     const add = (label, y, fn, color) => p.add(button(this, W / 2, y, label, fn, { w: 280, h: 52, color }))
     const journeyDone = this.level >= TOTAL_LEVELS
     if (this.mode === 'journey') {
-      if (won && !journeyDone) add('Next level ▶', 545, () => this.beginLevel(this.level + 1, true), 0x8b5cf6)
-      add(won ? 'Replay' : 'Try again', won && !journeyDone ? 605 : 545, () => this.beginLevel(this.level, true), 0x4c1d95)
-      add('Back to map', won && !journeyDone ? 665 : 605, () => this.leave(), 0x374151)
+      // Three actions need the extra room the tip jar would otherwise take, so
+      // the stack starts higher and the coffee link sits under it.
+      if (won && !journeyDone) add('Next level ▶', 500, () => this.beginLevel(this.level + 1, true), 0x8b5cf6)
+      add(won ? 'Replay' : 'Try again', won && !journeyDone ? 554 : 545, () => this.beginLevel(this.level, true), 0x4c1d95)
+      add('Back to map', won && !journeyDone ? 608 : 605, () => this.leave(), 0x374151)
     } else if (this.mode === 'classic') {
       if (won) add('Next level ▶', 545, () => this.beginLevel(this.level + 1, true), 0x8b5cf6)
       else add('Play again', 545, () => {
@@ -786,12 +788,13 @@ export default class GameScene extends Phaser.Scene {
       add('Play again', 545, () => this.beginLevel(1, true), 0x8b5cf6)
       add('Menu', 605, () => this.leave(), 0x374151)
     }
-    // Quiet support link: results panel only, below the actions, never mid-run.
+    // Quiet support link: results panel only, inside the card under the actions
+    // so it never sits on the power-up row, and never mid-run.
     p.add(
-      button(this, W / 2, 760, '☕ Buy me a coffee', () => openTipJar(), {
-        w: 300,
-        h: 46,
-        size: 18,
+      button(this, W / 2, 674, '☕ Buy me a coffee', () => openTipJar(), {
+        w: 280,
+        h: 44,
+        size: 17,
         color: 0x3b2a12,
         textColor: '#fde68a',
       }),
