@@ -17,6 +17,7 @@ import { W, H, TEX, PALETTE, background, button, text, fade } from './common.js'
 import { debris, ring, flashAt, beam, bolt, popText } from './fx.js'
 import { data, persist } from './save.js'
 import { REGIONS, GEM_NAMES, GEM_COLORS, levelDef, classicDef, describe, TOTAL_LEVELS } from './levels.js'
+import { openTipJar } from './support.js'
 
 const CELL = 72
 const BX = (W - CELL * SIZE) / 2
@@ -785,6 +786,16 @@ export default class GameScene extends Phaser.Scene {
       add('Play again', 545, () => this.beginLevel(1, true), 0x8b5cf6)
       add('Menu', 605, () => this.leave(), 0x374151)
     }
+    // Quiet support link: results panel only, below the actions, never mid-run.
+    p.add(
+      button(this, W / 2, 760, '☕ Buy me a coffee', () => openTipJar(), {
+        w: 300,
+        h: 46,
+        size: 18,
+        color: 0x3b2a12,
+        textColor: '#fde68a',
+      }),
+    )
     p.setAlpha(0)
     this.tweens.add({ targets: p, alpha: 1, duration: 300 })
   }
